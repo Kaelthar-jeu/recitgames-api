@@ -1,0 +1,40 @@
+# recitgames-api
+
+API centrale des abonnements Récit Games.
+Déployée sur Vercel. Accessible par tous les jeux du studio.
+
+## Structure
+
+```
+api/
+  verify-code.js   ← vérifie si un code est valide
+generate-code.js   ← génère un nouveau code (utilisation locale)
+```
+
+## Ajouter un abonné
+
+1. Lance `node generate-code.js` sur ton ordinateur
+2. Copie la ligne générée dans `api/verify-code.js`
+3. Committe et déploie sur Vercel
+4. Envoie le code à l'abonné par email
+
+## Renouveler un abonnement
+
+Même procédure — génère un nouveau code, ajoute-le, supprime l'ancien.
+
+## URL de l'API
+
+```
+POST https://recitgames-api.vercel.app/api/verify-code
+Body: { "code": "RG-XXXX-XXXX" }
+```
+
+Réponse si valide :
+```json
+{ "valide": true, "expire_le": "2026-04-12", "jours_restants": 31 }
+```
+
+Réponse si invalide :
+```json
+{ "valide": false, "message": "Code invalide" }
+```
